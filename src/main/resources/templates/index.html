@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 { color: #6db33f; }
+        p { font-size: 1.2rem; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Hello, Spring Boot!</h1>
+        <p th:text="${message}">メッセージ表示エリア</p>
+    </div>
+</body>
+</html>
