@@ -14,6 +14,19 @@
 
 ---
 
+## 🧩 推奨VSCode拡張機能
+
+クローン後、VSCodeの拡張機能タブ（`Ctrl+Shift+X` / `Cmd+Shift+X`）から以下の拡張機能をインストールしてください。
+
+1. **Extension Pack for Java** (Microsoft公式) 【必須】
+   - Javaのビルド・実行・コード補完・デバッグ機能
+2. **Spring Boot Extension Pack** (Microsoft公式) 【必須】
+   - Spring Bootプロジェクトの認識・ワンクリック起動・設定ファイルの補完
+3. **GitLens — Git supercharged** 【推奨】
+   - コードの変更履歴や誰が書いたかが一目で判別できるツール
+
+---
+
 ## 🚀 開発の始め方（初回セットアップ）
 
 ### 1. リポジトリの取得
