@@ -33,5 +33,112 @@
 ターミナルで以下のコマンドを実行し、プロジェクトをダウンロードします。
 
 ```bash
-git clone [https://github.com/RX80PR/Java.git](https://github.com/RX80PR/Java.git)
+git clone https://github.com/RX80PR/Java.git
 cd Java
+```
+
+### 2. VSCodeでプロジェクトを開く
+VSCodeを起動し、ダウンロードした `Java` フォルダ（`pom.xml` がある階層）を開きます。
+
+> **注意:** 初回起動時はVSCodeのJava拡張機能がライブラリを自動ダウンロードするため、画面左下のビルド完了まで数秒〜数十秒待ってください。
+
+---
+
+## ▷ アプリケーションの起動方法
+
+1. `src/main/java/com/example/demo/DemoApplication.java` を開きます。
+2. コード内の `main` メソッド上に出る **[▷ Run]** をクリック（または `F5` キー）して起動します。
+3. ターミナルに `Started DemoApplication` と表示されたら起動成功です。
+
+---
+
+## 🌐 アクセス先（URL）
+
+- **Webサイト（メイン画面）**: 
+  [http://localhost:8080](http://localhost:8080)
+- **H2 データベース管理画面 (H2 Console)**: 
+  [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+
+---
+
+## 🗄️ データベース（H2 Console）の中身の確認方法
+
+アプリ起動中、ブラウザからデータベース内のテーブル構造や保存されているデータ（レコード）を視覚的に確認・検索できます。
+
+### 1. H2 Console にログインする
+1. アプリ（`DemoApplication.java`）を起動した状態で、ブラウザで [http://localhost:8080/h2-console](http://localhost:8080/h2-console) にアクセスします。
+2. ログイン画面が表示されたら、以下の通り入力・確認して **[Connect]** ボタンを押します：
+   - **Saved Settings**: `Generic H2 (Embedded)`
+   - **Driver Class**: `org.h2.Driver`
+   - **JDBC URL**: `jdbc:h2:mem:testdb`  *(※ `testdb` の部分が正しく入力されているか確認してください)*
+   - **User Name**: `sa`
+   - **Password**: *(空欄のまま)*
+
+### 2. テーブルとデータの中身を確認する
+- **テーブル一覧の確認**:
+  ログイン成功後、画面左側のサイドバーに `USERS`, `ITEMS`, `CATEGORIES` などのテーブル一覧が表示されます。
+- **データ（中身）の表示**:
+  左側のテーブル名（例: `ITEMS`）をクリックすると、中央のSQL入力エリアに `SELECT * FROM ITEMS;` と自動入力されます。
+  上部の **[Run]** ボタンを押すと、画面下部にデータの一覧（商品名、価格、在庫数など）が表示されます。
+
+---
+
+## 📂 データベース（SQL）の共有ルール
+
+本プロジェクトでは、起動時にデータベースの構築と初期データの挿入が自動で行われます。
+
+- **`src/main/resources/schema.sql`**: テーブル構造（`CREATE TABLE`）を定義
+- **`src/main/resources/data.sql`**: 初期データ（マスターデータ・テストユーザー）を定義
+
+### ⚠️ チーム開発時のルール
+1. **テーブルを追加・変更した場合**: 
+   `schema.sql` を更新し、必ず Git にコミット＆Push してください。
+2. **個人のテストデータについて**: 
+   画面操作やSQLで追加したデータは自分のPCのメモリ上だけに保持されます。他人の環境には影響しません。
+
+---
+
+## 🌿 チーム開発・ブランチ運用ルール
+
+`main` ブランチへの直接編集・Push は禁止です。必ず作業用ブランチを作成して開発を行ってください。
+
+### 1. 作業開始時（最新コードの取得＆ブランチ作成）
+```bash
+# mainブランチに切り替えて最新化
+git checkout main
+git pull origin main
+
+# 作業用ブランチを作成して切り替え（例: feature/login-page）
+git checkout -b feature/機能名
+```
+
+### 2. 開発・コミット・Push
+```bash
+# 変更ファイルを対象に追加
+git add .
+
+# わかりやすいコミットメッセージをつけてコミット
+git commit -m "feat: ログイン画面のHTMLを作成"
+
+# ブランチをGitHubに送信
+git push -u origin feature/機能名
+```
+
+### 3. マージ（合体）手順
+1. GitHubのリポジトリ画面を開き、**「Compare & pull request」** ボタンをクリックしてプルリクエストを作成します。
+2. チームメンバー（または自分）が内容を確認し、問題がなければ **[Merge pull request]** を押して `main` にマージします。
+
+### 命名ルール（目安）
+- **機能追加**: `feature/機能名` (例: `feature/item-list`, `feature/cart`)
+- **バグ修正**: `fix/修正内容` (例: `fix/schema-error`)
+```
+eof
+
+すべての項目（開発環境、H2 ConsoleでのDB確認手順、チーム運用ルール等）を網羅した `README.md` ファイルを作成しました。
+
+このファイルを保存したら、VSCodeのターミナルで以下を実行して GitHub に反映させてください。
+
+```bash
+git add README.md
+git commit -m "docs: 開発手順およびH2Consoleの操作方法をREADMEに集約"
+git push
